@@ -14,12 +14,12 @@ export class SequelizeMember extends Model<Member> {
 
 SequelizeMember.init({
     Code: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false,
     },
     Name: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     }
 }, {

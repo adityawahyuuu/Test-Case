@@ -17,7 +17,7 @@ export class SequelizeBook extends Model<Book, Omit<Book, 'MemberCode'>> {
 
 SequelizeBook.init({
     Code: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         primaryKey: true,
         allowNull: false
     },
@@ -34,7 +34,7 @@ SequelizeBook.init({
         allowNull: false,
     },
     MemberCode: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: true
     }
 }, {

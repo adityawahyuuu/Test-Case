@@ -1,9 +1,13 @@
 import express from 'express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 import {syncDatabase} from './business/index'
 import {seedData} from './business/seed/seed'
 import router from './controllers/entrypoint';
+import swaggerOptions from './utils/swagger'
+import {sequelize} from './business/sequelize'
 
-async function runDb() {
+async function initDb() {
   try {
     await syncDatabase();
     console.log('Database synchronized successfully');
@@ -17,19 +21,27 @@ async function runDb() {
   }
 }
 
+async function connDb() {
+  await sequelize.sync()
+}
+
 function runServer() {
   const app = express();
+  const specs = swaggerJsdoc(swaggerOptions);
   
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
   app.use('/api', router);
   
-  const PORT = process.env.PORT || 3000;
+  const PORT = 3000;
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 }
 
 async function run(){
-  // await runDb()
+  // jalankan initDb ketika pertama kali
+  // await initDb()
+  await connDb()
   await runServer()
 }
 

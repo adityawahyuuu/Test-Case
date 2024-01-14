@@ -1,5 +1,5 @@
 import {Request, Response, Router} from 'express'
-import {BookRepositories} from "../business/repositories/BookRepositories/BookRepositories";
+import {BookRepositories} from "../business/repositories/BookRepositories/BookRepository";
 
 export class BookController {
     constructor(
@@ -8,6 +8,6 @@ export class BookController {
 
     async getAllBookExceptBorrowed(req: Request, res: Response) {
         const books = await this.repository.findAll()
-        return res.json(books)
+        return res.send(books)
     }
 }
