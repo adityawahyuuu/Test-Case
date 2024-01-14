@@ -1,9 +1,19 @@
-import express from "express"
+import {syncDatabase} from './database/index'
+import {seedData} from './database/seed/seed'
 
-const app = express()
-
-app.route("/").get((req, res) => {
-    res.send("hi")
-})
-
-app.listen(3000)
+async function run() {
+    try {
+      await syncDatabase();
+      console.log('Database synchronized successfully');
+      
+      await seedData();
+      console.log('Data seeded successfully');
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      // Any cleanup or additional logic after both operations
+    }
+  }
+  
+  run();
+  

@@ -1,9 +1,0 @@
-/*
-
-    Id
-    Title
-    Author
-    Stock
-    MemberId
-
- */
