@@ -1,9 +1,9 @@
 export class BookDto {
     constructor(
-        public readonly BookId: string,
+        public readonly Code: string,
         public Title: string,
         public Author: string,
         public Stock: number,
-        // public MemberId: string,
+        public MemberCode: string,
     ) {}
 }

@@ -1,6 +1,6 @@
 export class MemberDto {
     constructor(
-        public readonly MemberId: string,
+        public readonly Code: string,
         public Name: string,
     ) {}
 }

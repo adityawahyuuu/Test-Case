@@ -1,10 +1,15 @@
 import {DataTypes, Model, TextDataType} from 'sequelize'
 import {sequelize} from '../sequelize'
 import {Member} from '../../domain/entities/Member'
+import { SequelizeBook } from './Book'
 
 export class SequelizeMember extends Model<Member> {
-    declare Code: TextDataType
+    declare Code: string
     declare Name: string
+
+    static associate(){
+        SequelizeMember.hasMany(SequelizeBook, {foreignKey: 'Code'})
+    }
 }
 
 SequelizeMember.init({
@@ -22,4 +27,4 @@ SequelizeMember.init({
     tableName: 'member'
 })
 
-// relation with book
+// relation with book (satu member maksimal boleh pinjam 2 buku (one to many))

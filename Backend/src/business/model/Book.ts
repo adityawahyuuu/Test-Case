@@ -1,13 +1,18 @@
-import {DataTypes, Model, TextDataType} from 'sequelize'
+import {DataTypes, Model} from 'sequelize'
 import {sequelize} from '../sequelize'
 import {Book} from '../../domain/entities/Book'
+import { SequelizeMember } from './Member'
 
-export class SequelizeBook extends Model<Book> {
-    declare Code: TextDataType
+export class SequelizeBook extends Model<Book, Omit<Book, 'MemberCode'>> {
+    declare Code: string
     declare Title: string
     declare Author: string
     declare Stock: number
-    // MemberId: MemberId
+    declare MemberCode: string
+
+    static associate(){
+        SequelizeBook.belongsTo(SequelizeMember, {foreignKey: 'Code'})
+    }
 }
 
 SequelizeBook.init({
@@ -28,9 +33,13 @@ SequelizeBook.init({
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    MemberCode: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    }
 }, {
     sequelize,
     tableName: 'book'
 })
 
-// relation with member
+// relation with member (satu buku hanya boleh dipinjam oleh satu member disaat yg bersamaan (many to one))
